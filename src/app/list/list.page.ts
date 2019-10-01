@@ -10,29 +10,21 @@ export class ListPage implements OnInit {
   result = '';
   private selectedItem: any;
   private icons = [
-    'flask',
-    'wifi',
-    'beer',
-    'football',
-    'basketball',
-    'paper-plane',
-    'american-football',
-    'boat',
-    'bluetooth',
-    'build'
+    'camera',
+    'images',
   ];
   public items: Array<{ title: string; note: string; icon: string }> = [];
   constructor(private camera: Camera) {
     this.items.push({
       title: 'Câmera',
       note: ' ',
-      icon: this.icons[Math.floor(Math.random() * this.icons.length)]
+      icon: this.icons[0]
     });
 
     this.items.push({
       title: 'Galeria',
       note: ' ',
-      icon: this.icons[Math.floor(Math.random() * this.icons.length)]
+      icon: this.icons[1]
     });
   }
 

@@ -17,7 +17,7 @@ export class AppComponent {
       icon: 'home'
     },
     {
-      title: 'List',
+      title: 'Corrigir prova',
       url: '/list',
       icon: 'list'
     }

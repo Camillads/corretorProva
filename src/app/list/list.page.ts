@@ -45,11 +45,13 @@ export class ListPage implements OnInit {
 
   abrirImagens(item: any) {
     if (item.title === 'Câmera') {
-      this.tirarFoto();
+      this.takePicture();
+    } else {
+      this.uploadImage();
     }
   }
 
-  tirarFoto() {
+  takePicture() {
     const options: CameraOptions = {
       quality: 50,
       destinationType: this.camera.DestinationType.DATA_URL,
@@ -62,6 +64,20 @@ export class ListPage implements OnInit {
       .then((imageData) => {
         // chamar a api e passar imageData como parametro
         this.result = 'Você acertou 20 questões!';
+      },
+        (err) => {
+          console.log(err);
+        });
+  }
+
+  uploadImage() {
+    const options: CameraOptions = {
+      sourceType: this.camera.PictureSourceType.SAVEDPHOTOALBUM
+    }
+
+    this.camera.getPicture(options)
+      .then((imageUri) => {
+
       },
         (err) => {
           console.log(err);

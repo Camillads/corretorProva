@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 
 @Component({
   selector: 'app-list',
@@ -6,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['list.page.scss']
 })
 export class ListPage implements OnInit {
+  result = '';
   private selectedItem: any;
   private icons = [
     'flask',
@@ -20,14 +22,18 @@ export class ListPage implements OnInit {
     'build'
   ];
   public items: Array<{ title: string; note: string; icon: string }> = [];
-  constructor() {
-    for (let i = 1; i < 11; i++) {
-      this.items.push({
-        title: 'Item ' + i,
-        note: 'This is item #' + i,
-        icon: this.icons[Math.floor(Math.random() * this.icons.length)]
-      });
-    }
+  constructor(private camera: Camera) {
+    this.items.push({
+      title: 'Câmera',
+      note: ' ',
+      icon: this.icons[Math.floor(Math.random() * this.icons.length)]
+    });
+
+    this.items.push({
+      title: 'Galeria',
+      note: ' ',
+      icon: this.icons[Math.floor(Math.random() * this.icons.length)]
+    });
   }
 
   ngOnInit() {
@@ -36,4 +42,29 @@ export class ListPage implements OnInit {
   // navigate(item) {
   //   this.router.navigate(['/list', JSON.stringify(item)]);
   // }
+
+  abrirImagens(item: any) {
+    if (item.title === 'Câmera') {
+      this.tirarFoto();
+    }
+  }
+
+  tirarFoto() {
+    const options: CameraOptions = {
+      quality: 50,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE,
+      allowEdit: true
+    }
+
+    this.camera.getPicture(options)
+      .then((imageData) => {
+        // chamar a api e passar imageData como parametro
+        this.result = 'Você acertou 20 questões!';
+      },
+        (err) => {
+          console.log(err);
+        });
+  }
 }

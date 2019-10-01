@@ -4,19 +4,23 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>
-      List
+      Escolha uma opção para abrir as imagens:
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <ion-list>
-    <ion-item *ngFor="let item of items">
+    <ion-item class="imagem" *ngFor="let item of items" (click)="abrirImagens(item)">
       <ion-icon [name]="item.icon" slot="start"></ion-icon>
       {{item.title}}
       <div class="item-note" slot="end">
         {{item.note}}
       </div>
+    </ion-item>
+
+    <ion-item *ngIf="result && result != ''">
+      {{result}}
     </ion-item>
   </ion-list>
   <!--

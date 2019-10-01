@@ -7,6 +7,7 @@ import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
   styleUrls: ['list.page.scss']
 })
 export class ListPage implements OnInit {
+  listaImagens = new Array<any>();
   result = '';
   private selectedItem: any;
   private icons = [
@@ -54,8 +55,9 @@ export class ListPage implements OnInit {
 
     this.camera.getPicture(options)
       .then((imageData) => {
-        // chamar a api e passar imageData como parametro
-        this.result = 'Você acertou 20 questões!';
+        this.listaImagens.push(imageData);
+        this.corrigir();
+        // this.result = 'Você acertou 20 questões!';
       },
         (err) => {
           console.log(err);
@@ -69,10 +71,40 @@ export class ListPage implements OnInit {
 
     this.camera.getPicture(options)
       .then((imageUri) => {
-
+        this.listaImagens.push(ImageData);
+        this.corrigir();
       },
         (err) => {
           console.log(err);
         });
+  }
+
+  corrigir() {
+    if (this.listaImagens.length >= 2) {
+      // Exemplo de requisição POST
+      const ajax = new XMLHttpRequest();
+
+      // Seta tipo de requisição: Post e a URL da API
+      ajax.open('POST', 'https://gabrielsohza.pythonanywhere.com/api', true);
+      ajax.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+      // Seta paramêtros da requisição e envia a requisição
+      ajax.send(this.listaImagens[0]);
+
+      // Cria um evento para receber o retorno.
+      ajax.onreadystatechange = function () {
+
+        // Caso o state seja 4 e o http.status for 200, é porque a requisiçõe deu certo.
+        if (ajax.readyState === 4 && ajax.status === 200) {
+
+          const data = ajax.responseText;
+
+          // Retorno do Ajax
+          console.log(data);
+        }
+      }.bind(this);
+
+      this.listaImagens = new Array<any>();
+    }
   }
 }

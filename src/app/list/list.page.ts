@@ -67,12 +67,13 @@ export class ListPage implements OnInit {
 
   uploadImage() {
     const options: CameraOptions = {
-      sourceType: this.camera.PictureSourceType.SAVEDPHOTOALBUM
+      sourceType: this.camera.PictureSourceType.SAVEDPHOTOALBUM,
+      destinationType: this.camera.DestinationType.DATA_URL
     }
 
     this.camera.getPicture(options)
-      .then((imageUri) => {
-        this.listaImagens.push(imageUri);
+      .then((imageData) => {
+        this.listaImagens.push(imageData);
         this.result = 'tamanho = ' + this.listaImagens.length;
         this.corrigir();
       },

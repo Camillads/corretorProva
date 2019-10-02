@@ -57,8 +57,8 @@ export class ListPage implements OnInit {
     this.camera.getPicture(options)
       .then((imageData) => {
         this.listaImagens.push(imageData);
+        this.result = 'tamanho = ' + this.listaImagens.length;
         this.corrigir();
-        // this.result = 'Você acertou 20 questões!';
       },
         (err) => {
           console.log(err);
@@ -72,7 +72,8 @@ export class ListPage implements OnInit {
 
     this.camera.getPicture(options)
       .then((imageUri) => {
-        this.listaImagens.push(ImageData);
+        this.listaImagens.push(imageUri);
+        this.result = 'tamanho = ' + this.listaImagens.length;
         this.corrigir();
       },
         (err) => {
@@ -82,13 +83,16 @@ export class ListPage implements OnInit {
 
   corrigir() {
     if (this.listaImagens.length >= 2) {
-
+      debugger
+      this.result = 'entrou';
       this.appService.corrigirProva(this.listaImagens[0], this.listaImagens[1]).subscribe(
         sucesso => {
           this.result = sucesso;
+          this.listaImagens = [];
         },
         erro => {
-          this.listaImagens = new Array<any>();
+          this.listaImagens = [];
+          this.result = erro;
         }
       );
     }

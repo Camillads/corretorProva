@@ -66,6 +66,7 @@ export class ListPage implements OnInit {
   }
 
   uploadImage() {
+    debugger
     const options: CameraOptions = {
       sourceType: this.camera.PictureSourceType.SAVEDPHOTOALBUM,
       destinationType: this.camera.DestinationType.DATA_URL
@@ -73,6 +74,7 @@ export class ListPage implements OnInit {
 
     this.camera.getPicture(options)
       .then((imageData) => {
+        console.log(imageData);
         this.listaImagens.push(imageData);
         this.result = 'tamanho = ' + this.listaImagens.length;
         this.corrigir();
@@ -84,10 +86,10 @@ export class ListPage implements OnInit {
 
   corrigir() {
     if (this.listaImagens.length >= 2) {
-      debugger
       this.result = 'entrou';
       this.appService.corrigirProva(this.listaImagens[0], this.listaImagens[1]).subscribe(
         sucesso => {
+          debugger
           this.result = sucesso;
           this.listaImagens = [];
         },

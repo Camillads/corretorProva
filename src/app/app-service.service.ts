@@ -6,7 +6,7 @@ const httpOptions = {
   responseType: 'text' as 'json'
 };
 
-@Injectable({cer!!
+@Injectable({
   providedIn: 'root'
 })
 export class AppServiceService {
